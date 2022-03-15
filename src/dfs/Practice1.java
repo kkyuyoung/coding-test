@@ -59,7 +59,7 @@ public class Practice1 {
 				if (graph[i][j] == 1 && !visited[i][j]) {
 					cnt = 0;
 					dfs(i, j);
-					result = Math.max(result, cnt);
+					result = Math.max(result, cnt); // Math.max : 두개의 값을 비교해서 제일큰값 return
 				}
 			}
 		}
