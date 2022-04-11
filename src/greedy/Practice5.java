@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * 백준 > 탐욕법 > 캠핑(4796번)
+ * 백준 > 탐욕법 > 캠핑(4796번)  
  * 
  * @author gksrbdud
  *
