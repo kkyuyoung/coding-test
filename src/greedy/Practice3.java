@@ -26,7 +26,7 @@ public class Practice3 {
 				if (rankB > person[i]) {
 					rankB = person[i];
 					cnt++;
-				}
+				} 
 			}
 			System.out.println(cnt);
 		}
