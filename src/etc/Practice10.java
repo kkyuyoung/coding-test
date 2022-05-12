@@ -9,7 +9,7 @@ package etc;
 public class Practice10 {
 
 	public static void main(String[] args) {
-		System.out.print(gcdOfStrings("ABCDEF", "ABC"));
+		System.out.print(gcdOfStrings("ABCDEF", "ABC")); 
 	}
 
 	public static String gcdOfStrings(String str1, String str2) {
