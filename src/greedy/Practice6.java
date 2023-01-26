@@ -1,10 +1,7 @@
 package greedy;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -21,20 +18,35 @@ public class Practice6 {
 		int k = sc.nextInt();
 
 		int result = 0;
-		int[][] nn = new int[n][2];
+		int[][] nList = new int[n][2];
 		for (int i = 0; i < n; i++) {
-			nn[i][0] = sc.nextInt();
-			nn[i][1] = sc.nextInt();
+			nList[i][0] = sc.nextInt();
+			nList[i][1] = sc.nextInt();
 		}
 
-		Arrays.sort(nn, Comparator.comparingInt((int[] o) -> o[1]).reversed());
+		Arrays.sort(nList, Comparator.comparingInt((int[] o) -> o[1]).reversed());
 
-//
-//		List<Integer> kList = new ArrayList<>();
-//		for (int i = 0; i < k; i++) {
-//			int kk = sc.nextInt();
-//			kList.add(kk);
-//		}
+		int[] kList = new int[k];
+		for (int i = 0; i < k; i++) {
+			kList[i] = sc.nextInt();
+		}
+
+		Arrays.sort(kList);
+
+		for (int i = 0; i < nList.length; i++) {
+
+			for (int j = 0; j < kList.length; j++) {
+				if (kList[j] >= nList[i][0] && kList[j] != -1) {
+					result += nList[i][1];
+					kList[j] = -1;
+					break;
+
+				}
+			}
+
+		}
+
+		System.out.println(result);
 
 	}
 }

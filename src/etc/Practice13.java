@@ -1,11 +1,11 @@
 package etc;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
- * ÇÁ·Î±×·¡¸Ó½º > ÄÚµùÅ×½ºÆ® ¿¬½À > ¿ù°£ ÄÚµå Ã§¸°Áö ½ÃÁð1 > µÎ °³ »Ì¾Æ¼­ ´õÇÏ±â
+ * ì½”ë”©í…ŒìŠ¤íŠ¸ ì—°ìŠµ >íƒìš•ë²•(Greedy) > ì²´ìœ¡ë³µ
  * 
  * @author gksrbdud
  *
@@ -13,29 +13,64 @@ import java.util.Set;
 public class Practice13 {
 
 	public static void main(String[] args) {
-		int[] numbers = { 2, 1, 3, 4, 1 };
-		solution(numbers);
+
+		int n = 5;
+		int[] lost = { 3 };
+		int[] reserve = { 2, 4 };
+		System.out.println(solution(n, lost, reserve));
 	}
 
-	public static int[] solution(int[] numbers) {
+	public static int solution(int n, int[] lost, int[] reserve) {
 
-		Set<Integer> set = new HashSet<>();
-		for (int i = 0; i < numbers.length - 1; i++) {
-			for (int j = i + 1; j < numbers.length; j++) {
-				set.add(numbers[i] + numbers[j]);
+		int answer = 0;
+
+		List<String> lostList = new ArrayList<>();
+		for (int i = 0; i < lost.length; i++) {
+			lostList.add(Integer.toString(lost[i]));
+		}
+
+		List<String> reserveList = new ArrayList<>();
+		for (int i = 0; i < reserve.length; i++) {
+			reserveList.add(Integer.toString(reserve[i]));
+		}
+
+		// reserveì—ì„œ lost ì œê±°
+		reserveList.removeAll(lostList);
+
+		// 1ì´ ìžˆë‹¤ë©´ 1+1
+		if (reserveList.contains("1")) {
+			if (lostList.contains("2")) {
+				// lostList, reserveList ë‘˜ë‹¤ ë¹¼ì£¼ê¸°
+				lostList.remove("2");
+				reserveList.remove(0); // index
 			}
-
+		}
+		// nì´ ìžˆë‹¤ë©´ n-1
+		if (reserveList.contains(Integer.toString(n))) {
+			int e = n - 1;
+			if (lostList.contains(Integer.toString(e))) {
+				// lostList, reserveList ë‘˜ë‹¤ ë¹¼ì£¼ê¸°
+				lostList.remove(Integer.toString(e)); // í•´ë‹¹ ê°’ ë¹¼ì£¼ê¸°
+				reserveList.remove(Integer.toString(n)); // index
+			}
 		}
 
-		int[] answer = new int[set.size()];
+		Arrays.sort(reserveList.stream().mapToInt(Integer::parseInt).toArray());
 
-		int i = 0;
-		for (Integer num : set) {
-			answer[i] = num;
-			i++;
+		for (int i = 0; i < reserveList.size(); i++) {
+			int aa = Integer.parseInt(reserveList.get(i)) - 1;
+			int bb = Integer.parseInt(reserveList.get(i)) + 1;
+
+			if (lostList.contains(Integer.toString(aa))) {
+				lostList.remove(Integer.toString(aa));
+				reserveList.remove(i);
+			} else if (lostList.contains(Integer.toString(bb))) {
+				lostList.remove(Integer.toString(bb));
+				reserveList.remove(i);
+			}
 		}
 
-		Arrays.sort(answer);
+		answer = n - lostList.size();
 
 		return answer;
 	}
