@@ -1,10 +1,7 @@
 package etc;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * 프로그래머스 코딩테스트 연습 > 달리기 경주
+ * 프로그래머스 코딩테스트 연습 > Summer/Winter Coding(~2018) > 소수 만들기
  * 
  * @author gksrbdud
  *
@@ -13,39 +10,38 @@ public class Practice43 {
 
 	public static void main(String[] args) {
 
-		String[] players = { "mumu", "soe", "poe", "kai", "mine" };
-		String[] callings = { "kai", "kai", "mine", "mine" };
-
-		String[] answer = solution(players, callings);
-
-		for (String ans : answer) {
-			System.out.println(ans);
-		}
+		int[] nums = { 1, 2, 7, 6, 4 };
+		System.out.println(solution(nums));
 
 	}
 
-	public static String[] solution(String[] players, String[] callings) {
-		Map<String, Integer> playerIndexMap = new HashMap<>();
+	public static int solution(int[] nums) {
+		int answer = 0;
 
-		for (int i = 0; i < players.length; i++) {
-			playerIndexMap.put(players[i], i);
-		}
+		for (int i = 0; i < nums.length; i++) {
+			for (int j = i + 1; j < nums.length; j++) {
+				for (int k = j + 1; k < nums.length; k++) {
+					int num = nums[i] + nums[j] + nums[k]; // 값을 담아
+					boolean chk = sosu(num);
+					if (chk) // 소수일 경우 answer 카운트
+						answer++;
 
-		for (String call : callings) {
-			Integer index = playerIndexMap.get(call);
-
-			String prevPlayer = players[index - 1];
-			String indexPlayer = players[index];
-
-			players[index - 1] = players[index];
-			players[index] = prevPlayer;
-
-			playerIndexMap.put(indexPlayer, index - 1);
-			playerIndexMap.put(prevPlayer, index);
+				}
+			}
 
 		}
-
-		return players;
+		return answer;
 	}
 
+	public static boolean sosu(int num) {
+		boolean check = true;
+
+		for (int i = 2; i < num; i++) {
+			if (num % i == 0) {
+				return false;
+			}
+		}
+
+		return check;
+	}
 }
