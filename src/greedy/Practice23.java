@@ -1,40 +1,46 @@
 package greedy;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
-/**
- * 백준 > 탐욕법 > 접두사(1141번)
- * 
- * @author gksrbdud
- *
- */
 public class Practice23 {
-	public static void main(String[] args) throws Exception {
-		Scanner sc = new Scanner(System.in);
-		
-		int n = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		List<String> strList = new ArrayList<>();
-		for(int i=0; i<n; i++) {
-		  strList.add(sc.next());
-		}
+        int N = Integer.parseInt(br.readLine());
+        String[] strings = new String[N];
 
-		int cnt = 0;
-		for(int i=0; i<strList.size(); i++) {
-		  String curStr = strList.get(i);
-		  for(int j=0; j<strList.size(); j++) {
-		    if(i != j) {
-		    	String otherStr = strList.get(j);
-		    	if(otherStr.startsWith(curStr)) {
-		    		cnt++; //curStr이 접두사이면 cnt++
-		    		break;
-		    	}
-		    }
-		  }
-		}
-		
-		System.out.println(n-cnt);
-	}
+        for (int i = 0; i < N; i++) {
+            strings[i] = br.readLine();
+        }
+
+        Arrays.sort(strings, (str1, str2) -> str2.length() - str1.length());
+        List<String> nonPrefixStrings = new ArrayList<>();
+
+        for (String currentString : strings) {
+            if (nonPrefixStrings.size() == 0) {
+                nonPrefixStrings.add(currentString);
+                continue;
+            }
+
+            boolean isPrefix = false;
+
+            for (String existingString : nonPrefixStrings) {
+                if (existingString.indexOf(currentString) == 0) {
+                    isPrefix = true;
+                    break;
+                }
+            }
+
+            if (!isPrefix) {
+                nonPrefixStrings.add(currentString);
+            }
+        }
+
+        System.out.println(nonPrefixStrings.size());
+    }
 }
