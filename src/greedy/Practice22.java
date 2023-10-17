@@ -27,6 +27,11 @@ public class Practice22 {
 		
 		}
 
-		System.out.println(Math.min(rCnt, bCnt) + 1);
+		if(rCnt >= bCnt) {
+			System.out.println(bCnt + 1);
+		} else {
+			System.out.println(rCnt + 1);
+		}
+		
 	}
 }
