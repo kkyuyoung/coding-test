@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Stack;
 
 /**
- * 프로그래머스 > 연습문제 > 뒤에 있는 큰 수 찾기
+ * 프로그래머스 > 연습문제 > 뒤에 있는 큰 수 찾기 
  * 
  * @author gksrbdud
  *
